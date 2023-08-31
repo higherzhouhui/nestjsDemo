@@ -1,13 +1,13 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post } from '@nestjs/common';
 import { MessagesService } from './messages.service';
 import { Message } from './messages.entity';
 
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) {}
-  @Get('/users')
-  getAll(): Promise<Message[]> {
-    return this.messagesService.findAll();
+  @Get(':userId')
+  findOne(@Param('userId') userId: string) {
+    return this.messagesService.selectColumn(userId);
   }
   @Get('/add')
   addColumn() {

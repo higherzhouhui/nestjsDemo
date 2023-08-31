@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 // import { Message } from './interfaces/message.interface';
 // ORM
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, createConnection } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Message } from './messages.entity';
 
 @Injectable()
@@ -27,9 +27,19 @@ export class MessagesService {
     newMessage.updatedTime = new Date();
     newMessage.updator = 5;
     this.messagesRepository.insert(newMessage);
+    // this.messagesRepository.create({
+    //   userId: 444,
+    // });
     return { code: 200, msg: 'success' };
   }
   deleteDateColumn() {
     this.messagesRepository.delete(1);
+  }
+  selectColumn(userId: string) {
+    this.messagesRepository
+      .createQueryBuilder()
+      .select()
+      .where('user_Id = :userId', { userId: userId })
+      .getSql();
   }
 }
