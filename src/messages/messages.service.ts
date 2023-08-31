@@ -27,6 +27,7 @@ export class MessagesService {
     newMessage.updatedTime = new Date();
     newMessage.updator = 5;
     this.messagesRepository.insert(newMessage);
+    return { code: 200, msg: 'success' };
   }
   deleteDateColumn() {
     this.messagesRepository.delete(1);
