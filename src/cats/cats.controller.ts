@@ -32,27 +32,27 @@ export class CatsController {
     description: '这是用户name',
   })
   @ApiQuery({
-      name: 'role',
-      description: '这是需要传递的参数',
+    name: 'role',
+    description: '这是需要传递的参数',
   })
   @ApiHeader({
-      name: 'authoriation',
-      required: true,
-      description: '本次请求请带上token',
+    name: 'authoriation',
+    required: true,
+    description: '本次请求请带上token',
   })
   async findAll(@Query() query: ListAllEntities): Promise<Cat[]> {
-    console.log(query)
+    console.log(query);
     return this.catsService.findAll(query);
   }
 
   // 自定义状态码
   @Get('/test')
   testRes(@Res() res: Response) {
-    res.send({code: 200, data: {list: []}, message: '操作成功'})
+    res.send({ code: 200, data: { list: [] }, message: '操作成功' });
     // res.status(HttpStatus.OK).json([]);
   }
 
-  @Get(':id')  
+  @Get(':id')
   findOne(@Param('id', ValidationPipe) id: number): string {
     console.log(id);
     return `This action returns a #${id} cat`;
@@ -60,8 +60,8 @@ export class CatsController {
 
   @Post()
   create(@Body() createCatDto: CreateCatDto): string {
-    this.catsService.create(createCatDto)
-    return ''
+    this.catsService.create(createCatDto);
+    return '';
   }
 
   @Put(':id')
